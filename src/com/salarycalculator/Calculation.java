@@ -2,11 +2,11 @@ package com.salarycalculator;
 
 // This class will have all the methods to calculate the salary
 
-public class Calculation {
-    //Instance Variable
-     final int weeks =52;
-     final int bonus = 10000;
-    int total=0;
+ class Calculation {
+    //made them private because variable do not need to be used in another class
+     private final int weeks =52;
+     private final int bonus = 10000;
+     private int total=0;
 
     // This method is for Total salary in dollars
      public int salary(int rate, int hour)

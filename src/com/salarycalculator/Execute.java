@@ -17,8 +17,11 @@ public class Execute {
         Integer rate = 0;
         Integer hour= 0;
 
+
         Calculation cal = new Calculation();
-        String[] employee = new String[0];
+
+
+
 
 
         try {
@@ -43,7 +46,7 @@ public class Execute {
                     System.out.println("q. Close application");
                     choice = input.nextLine();
                 while ((line = sc.readLine()) != null) {
-
+                    String[] employee = new String[0];
                     //  " | " is a special character so you need to "\\|" to be able to split information
                     // on the CSV file
                     employee = line.split("\\|");
