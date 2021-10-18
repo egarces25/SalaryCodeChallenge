@@ -1,22 +1,25 @@
 package com.salarycalculator;
 
-import javax.print.DocFlavor;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Execute {
-
+      
 
     public static void fileExtract() {
         //local variables
-        String line = "";
-        String name ="";
-        String Role= "";
-        Integer rate = 0;
-        Integer hour= 0;
-
+        String line;
+        String name;
+        String role;
+        int rate;
+        int hour;
+        List<CSV> list = new ArrayList<>();
 
         Calculation cal = new Calculation();
 
@@ -43,20 +46,34 @@ public class Execute {
                     System.out.println("How would you like to calculate the summary: ");
                     System.out.println("a. Total Salary in dollars");
                     System.out.println("b. Total Salary in dollars group by role");
+                System.out.println("c. Sort name");
                     System.out.println("q. Close application");
                     choice = input.nextLine();
                 while ((line = sc.readLine()) != null) {
-                    String[] employee = new String[0];
+                    String[] employee;
+
                     //  " | " is a special character so you need to "\\|" to be able to split information
                     // on the CSV file
                     employee = line.split("\\|");
+
+                    name = employee[0];
+                    rate= Integer.parseInt(employee[1]);
+                    hour = Integer.parseInt(employee[2]);
+                    role = employee[3];
+                    list.add(new CSV(name,rate,hour,role));
+                }
+
                     if (choice.equals("a") || choice.equals("A")) {
-                        System.out.println("Name = " + employee[0] +", "+" Salary = " + cal.salary( rate.parseInt(employee[1]), hour.parseInt(employee[2])));
+                        System.out.println(cal.getCollect(list));
                     } else if (choice.equals("b") || choice.equals("B")) {
-                        System.out.println("Name = " + employee[0] +", "+ " Salary = " + cal.salary(rate.parseInt(employee[1]), hour.parseInt(employee[2]), employee[3]) +", "+ " Role = " + employee[3]);
+                        System.out.println(cal.salary(list));
+                    } else if(choice.equals("c") || choice.equals("C"))
+                    {
+
+                        System.out.println(list.stream().map(CSV::getName).collect(Collectors.toList()));
 
                     }
-                }
+
 
                   //Give the user a chance to input another CSV
                   System.out.println("Press Enter if you would like to check another CSV? If not press q....");
@@ -71,6 +88,8 @@ public class Execute {
         }
 
     }
-    }
+
+
+}
 
 
